@@ -70,6 +70,12 @@ it will run the application and tail the logs of the first POD until interrupted
 
 To access application, look into openshift to find the route for this application and you can access the app directly via that link.
 
+*Configuration for OpenShift*
+
+Additional configuration (except the default one in application-openshift.properties) can be found in src/main/fabric8
+- deployment.yml allos to configure overall setup including env variables, configmap, mount points etc
+- configmap.yml configures maven to be used by KIE - it's a custom settings.xml
+- data-pvc.yml defines simple persistence volume claim
 
 
 Login to application
