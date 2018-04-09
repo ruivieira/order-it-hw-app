@@ -78,6 +78,16 @@ Additional configuration (except the default one in application-openshift.proper
 - data-pvc.yml defines simple persistence volume claim
 
 
+*Security restriction on OpenShift*
+
+OpenShift by default uses high number as user id that runs the process in container. This in many cases will lead to permision denied on file system (both read and write) and will not use the user defined in dockerfile. To allow to use dockerfile user run this on your OpenShift cluster:
+
+```
+oc adm policy add-scc-to-group anyuid system:authenticated
+```
+
+
+
 Login to application
 ------------------------------
 

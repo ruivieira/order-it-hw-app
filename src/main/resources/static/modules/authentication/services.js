@@ -12,9 +12,8 @@ angular.module('Authentication')
             this.SetCredentials(username, password);
             $http({method: 'GET', url: serverUrl}).
                     success(function(data, status, headers, config) {
-                        KieServerInfoService.data.username = username;
-                        KieServerInfoService.data.kieServer = data.result['kie-server-info'];
-                        var response = { success: status == 200, message : status, data : data.result['kie-server-info']};
+                        KieServerInfoService.data.username = username;                        
+                        var response = { success: status == 200, message : status, data : data};
                         callback(response);
                     }).
                     error(function(data, status, headers, config) {
