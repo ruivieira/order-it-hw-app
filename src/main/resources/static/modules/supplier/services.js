@@ -23,7 +23,7 @@ angular.module('Supplier')
         
         service.GetOrderTasks = function (serverUrl, page, pageSize, callback) {
 
-            $http({method: 'GET', url: serverUrl + "/queries/tasks/instances/pot-owners?page=" + page + "&pageSize=" + pageSize + "&filter=Place order"}).
+            $http({method: 'GET', url: serverUrl + "/queries/tasks/instances/pot-owners?page=" + page + "&pageSize=" + pageSize + "&filter=Confirm shippment"}).
                     success(function(data, status, headers, config) {
                         var response = { success: status == 200, message : status, data : data['task-summary']};
                         callback(response);
@@ -66,7 +66,7 @@ angular.module('Supplier')
 
         	var data = {
                     "info_" : orderInfo,
-                    "ordered_" : true
+                    "shipped_" : true
                   };
 
                   $http({method: 'PUT', url: serverUrl + "/containers/itorders/tasks/" + taskId + "/states/completed?auto-progress=true",

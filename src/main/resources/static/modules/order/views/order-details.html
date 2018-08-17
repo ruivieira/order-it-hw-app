@@ -183,7 +183,7 @@
             </li>
 
 
-            <li class="progress-done" ng-if="milestones.get('Manager decision') != null && managerDecision == true">
+            <li class="progress-done" ng-if="milestones.get('Manager approved') != null && managerDecision == true">
                 <center>
                     <div class="icon-wrap">
                         <svg class="icon-state icon-check-mark">
@@ -200,7 +200,7 @@
                 </center>
             </li>
 
-            <li class="progress-rejected" ng-if="milestones.get('Manager decision') != null && managerDecision == false">
+            <li class="progress-rejected" ng-if="milestones.get('Manager rejected') != null && managerDecision == false">
                 <center>
                     <div class="icon-wrap">
                         <svg class="icon-state icon-check-mark">
@@ -217,7 +217,7 @@
                 </center>
             </li>
 
-            <li class="progress-todo" ng-if="milestones.get('Manager decision') == null">
+            <li class="progress-todo" ng-if="milestones.get('Manager approved') == null">
                 <center>
                     <div class="icon-wrap">
                         <svg class="icon-state icon-check-mark">

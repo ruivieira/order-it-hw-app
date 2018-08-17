@@ -1,7 +1,8 @@
 IT Orders Case application with SpringBoot
 ========================================
 
-SpringBoot version of IT Orders Case application that show case capabilities of jBPM case management.
+SpringBoot version of IT Orders Case application that show case capabilities of jBPM case management
+KJAR supported for this application can be found at https://github.com/mswiderski/IT_Orders
 
 Supported profiles
 ------------------------------
@@ -43,7 +44,7 @@ java -Dspring.profiles.active=local -jar target/order-it-hw-app-1.0.0.jar
 
 This will boot the application and connect to controller (by default located at http://localhost:8080/kie-wb/rest/controller - it's
  configurable via application-local.properties).
- 
+
 To access application simply go to http://localhost:8090/
 
 Running the application on OpenShift
@@ -95,5 +96,3 @@ There are several users predefined that allow to use this application:
 - maciek (maciek1!) - regular user who can place orders
 - tihomir (tihomir1!) - supplier that can provide hardware specification and place orders
 - krisv (krisv1!) - manager that can approve/reject orders
-
-

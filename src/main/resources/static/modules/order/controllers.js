@@ -505,7 +505,7 @@ angular.module('Orders')
 
                         if (response.success) {
                             $scope.closecomment = {};
-                            $route.reload();
+                            $scope.collectMyOrders();
                         } else {
                             $scope.errorMessage = response.message;                            
                         }
