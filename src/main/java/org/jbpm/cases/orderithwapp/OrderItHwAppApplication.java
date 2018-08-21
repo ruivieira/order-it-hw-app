@@ -15,9 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class OrderItHwAppApplication {
     
-    private static String GROUP_ID = "org.jbpm.demo.apps";
+    private static String GROUP_ID = "itorders";
     private static String ARTIFACT_ID = "itorders";
-    private static String VERSION = "1.0.0";
+    private static String VERSION = "2.0.0";
 
 	public static void main(String[] args) {
 	    String controller = System.getProperty(KieServerConstants.KIE_SERVER_CONTROLLER);
