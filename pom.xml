@@ -23,7 +23,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
     <narayana.version>5.9.0.Final</narayana.version>
-    <kie.version>7.18.0.Final</kie.version>
+    <kie.version>7.18.1-SNAPSHOT</kie.version>
   </properties>
 
 
@@ -42,10 +42,21 @@
       <artifactId>kie-server-controller-websocket-client</artifactId>
       <version>${kie.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.jbpm</groupId>
+      <artifactId>jbpm-prediction-random-forest</artifactId>
+      <version>${kie.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kie.server</groupId>
+      <artifactId>kie-server-client</artifactId>
+      <version>${kie.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

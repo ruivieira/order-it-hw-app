@@ -373,7 +373,9 @@
                             <li class="list-group-item"  restrict access="Employee" ng-if="milestones.get('Milestone 2: Order shipped') != null && milestones.get('Milestone 3: Delivered to customer') == null">
                                 <button type="button" class="btn btn-success btn-lg btn-block" ng-click="deliverOrder(order['case-id'])">Received Order</button>
                             </li>
-
+                            <li class="list-group-item">
+                                <button type="button" class="btn btn-success btn-lg btn-block" ng-click="addDynamicTask(order['case-id'])">Add Task</button>
+                            </li>
                         </div>
                     </div>
                 </div>
@@ -390,6 +392,7 @@
                                 <li class="active"><a href="" data-toggle="tab" data-target="#hardware">Hardware specification</a></li>
                                 <li><a href="" data-toggle="tab" data-target="#comments" ng-click="showComments()">Comments</a></li>
                                 <li><a href="" data-toggle="tab" data-target="#mytasks" ng-click="showTasks()">My tasks</a></li>
+                                <li><a href="" data-toggle="tab" data-target="#myrecommendations" ng-click="showRecommendations()">Recommendations</a></li>
                             </ul>
 
                             <div id="my-tab-content" class="tab-content">
@@ -401,6 +404,9 @@
                                 </div>
                                 <div class="tab-pane" id="mytasks">
                                     <div ng-include="'modules/order/views/show-tasks.html'"></div>
+                                </div>
+                                <div class="tab-pane" id="myrecommendations">
+                                    <div ng-include="'modules/order/views/show-recommendations.html'"></div>
                                 </div>
                             </div>
 

@@ -3,6 +3,7 @@ package org.jbpm.cases.orderithwapp;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.jbpm.prediction.randomforest.RandomForestPredictionService;
 import org.kie.server.api.KieServerConstants;
 import org.kie.server.api.model.KieContainerResource;
 import org.kie.server.api.model.KieContainerStatus;
@@ -20,7 +21,8 @@ public class OrderItHwAppApplication {
     private static String VERSION = "2.0.0";
 
 	public static void main(String[] args) {
-	    String controller = System.getProperty(KieServerConstants.KIE_SERVER_CONTROLLER);
+		System.setProperty("org.jbpm.task.prediction.service", RandomForestPredictionService.IDENTIFIER);
+		String controller = System.getProperty(KieServerConstants.KIE_SERVER_CONTROLLER);
         
         if ( controller != null && !controller.isEmpty()) {
             System.out.println("Controller is configured ("+controller+") - no local kjars can be installed");

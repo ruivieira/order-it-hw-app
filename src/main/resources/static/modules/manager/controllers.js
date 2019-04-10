@@ -25,9 +25,24 @@ angular.module('Manager')
                 }
             });
 
-            $scope.selected = function(taskId) {
-
-                $scope.taskId = taskId;
+            $scope.selected = function(task) {
+                $scope.taskId = task['task-id'];
+                ManagerService.GetTask(appConfig.get('kieserver_url'), task['task-id'], function (response) {
+                    if (response.success) {
+                        $scope.selectedTask = response.data;
+                        ManagerService.GetOrder(appConfig.get('kieserver_url'), response.data['task-input-data']['orderNumber'], function (response) {
+		                    if (response.success) {
+		                        $scope.selectedOrder = response.data;
+		                    } else {
+		                        $scope.error = response.message;
+		                        $scope.dataLoading = false;
+		                    }
+		                });
+                    } else {
+                        $scope.error = response.message;
+                        $scope.dataLoading = false;
+                    }
+                });
             }
 
             $scope.reload = function(taskId) {

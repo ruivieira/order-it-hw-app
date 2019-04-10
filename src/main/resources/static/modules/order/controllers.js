@@ -398,6 +398,19 @@ angular.module('Orders')
                     });
                 };
 
+                $scope.showRecommendations = function() {
+
+                    OrderService.GetRecommendationsForOrder(appConfig.get('kieserver_url'), $scope.order['case-id'], $scope.page, $scope.pageSize, function (response) {
+
+                        if (response.success) {
+                            $scope.tasks = response.data;
+                        } else {
+                            $scope.error = response.message;
+                            $scope.dataLoading = false;
+                        }
+                    });
+                };
+
                
                 $scope.prevPage = function() {
                     $scope.page = $scope.page - 1;

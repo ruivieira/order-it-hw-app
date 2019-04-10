@@ -3,8 +3,8 @@
   <div class="list-group list-view-pf list-view-pf-view">
     <div class="list-group-item" ng-repeat="task in tasks">
       <div class="list-view-pf-actions">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#approveModal" ng-click="selected(task['task-id'])">Approve</button>
-        <button class="btn btn-danger" data-toggle="modal" data-target="#rejectModal" ng-click="selected(task['task-id'])">Reject</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#approveModal" ng-click="selected(task)">Approve</button>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#rejectModal" ng-click="selected(task)">Reject</button>
       </div>
       <div class="list-view-pf-main-info">
         <div class="list-view-pf-left">
@@ -44,9 +44,27 @@
       <div class="modal-body">
         <form class="form-horizontal">
           <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput2-modal-markup">OrderId</label>
+            <div class="col-sm-9">
+              <textfield rows="5" id="textInput2-modal-markup" class="form-control" ng-model="approveComment">{{ selectedTask['task-input-data']['orderNumber'] }}</textfield>
+            </div>
+            <label class="col-sm-3 control-label" for="textInput2-modal-markup">Requestor</label>
+            <div class="col-sm-9">
+              <textfield rows="5" id="textInput2-modal-markup" class="form-control" ng-model="approveComment">{{ selectedTask['task-input-data']['requestor'] }}</textfield>
+            </div>
+            <label class="col-sm-3 control-label" for="textInput2-modal-markup">Supplier</label>
+            <div class="col-sm-9">
+              <textfield rows="5" id="textInput2-modal-markup" class="form-control" ng-model="approveComment">{{ selectedOrder['case-roles'][2]['groups'][0] }}</textfield></div>
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">Comment (optional)</label>
             <div class="col-sm-9">
               <textarea rows="5" id="textInput2-modal-markup" class="form-control" ng-model="approveComment"></textarea></div>
+            <span class="col-sm-1" tabindex="0">
+              <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg"><g fill="#ED3E44" fill-rule="evenodd"><path d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z"/><path d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z"/></g></svg>
+            </span>
+            <label class="col-sm-11 text-left" title="Recommendation: {{ selectedTask['task-output-data']['approved'] }}
+Confidence: {{ selectedTask['task-output-data']['confidence'] }}
+Relative importance 'Requestor': {{ selectedTask['task-output-data']['requestorImportance'] }}
+Relative importance 'Supplier': {{ selectedTask['task-output-data']['itemImportance'] }}" for="textInput2-modal-markup">Recommendations</label>
           </div>
         </form>
       </div>

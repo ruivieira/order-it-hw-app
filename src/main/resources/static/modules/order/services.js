@@ -95,6 +95,20 @@ angular.module('Orders')
                     });
         };
 
+        service.GetRecommendationsForOrder = function (serverUrl, orderNumber, page, pageSize, callback) {
+
+            $http({method: 'GET', url: serverUrl + "/queries/cases/instances/" + orderNumber + "/tasks/instances/pot-owners?page=" + page + "&pageSize=" + pageSize}).
+                    success(function(data, status, headers, config) {
+                        var response = { success: status == 200, message : status, data : data['task-summary']};
+                        callback(response);
+                    }).
+                    error(function(data, status, headers, config) {
+
+                        var response = { success: false, message : status};
+                        callback(response);
+                    });
+        };
+
         service.GetComments = function (serverUrl, orderNumber, callback) {
 
             $http({method: 'GET', url: serverUrl + "/containers/itorders/cases/instances/" + orderNumber + "/comments"}).

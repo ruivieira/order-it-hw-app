@@ -38,5 +38,35 @@ angular.module('Manager')
                         console.error("Error when claiming task " + taskId + " status code " + status + " data " + data);
                     });
                 };
+                
+        service.GetTask = function (serverUrl, taskId, callback) {
+            $http({method: 'GET', url: serverUrl + "/containers/itorders/tasks/" + taskId + "?withInputData=true&withOutputData=true"}).
+                    success(function(data, status, headers, config) {
+                        var response = { success: status == 200, message : status, data : data};
+						callback(response);
+                        
+                    }).
+                    error(function(data, status, headers, config) {
+                        var response = { success: false, message : status};
+                        callback(response);
+                    });
+        };
+        
+        service.GetOrder = function (serverUrl, caseId, callback) {
+
+            $http({method: 'GET', url: serverUrl + "/containers/itorders/cases/instances/" + caseId + "?withRoles=true"}).
+                    success(function(data, status, headers, config) {
+                        var response = { success: status == 200, message : status, data : data};
+                        callback(response);
+                    }).
+                    error(function(data, status, headers, config) {
+
+                        var response = { success: false, message : status};
+                        callback(response);
+                    });
+        };
+
+        
+        
         return service;
     }]);
