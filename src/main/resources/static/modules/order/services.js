@@ -85,7 +85,10 @@ angular.module('Orders')
 
             $http({method: 'GET', url: serverUrl + "/queries/cases/instances/" + orderNumber + "/tasks/instances/pot-owners?page=" + page + "&pageSize=" + pageSize}).
                     success(function(data, status, headers, config) {
-                        var response = { success: status == 200, message : status, data : data['task-summary']};
+                    	var newData = data['task-summary'].filter(function(task) {
+						  return !task['task-description'].startsWith('Recommendation:');
+						});
+                        var response = { success: status == 200, message : status, data : newData};
                         callback(response);
                     }).
                     error(function(data, status, headers, config) {
@@ -99,7 +102,10 @@ angular.module('Orders')
 
             $http({method: 'GET', url: serverUrl + "/queries/cases/instances/" + orderNumber + "/tasks/instances/pot-owners?page=" + page + "&pageSize=" + pageSize}).
                     success(function(data, status, headers, config) {
-                        var response = { success: status == 200, message : status, data : data['task-summary']};
+                        var newData = data['task-summary'].filter(function(task) {
+						  return task['task-description'].startsWith('Recommendation:');
+						});
+						var response = { success: status == 200, message : status, data : newData};
                         callback(response);
                     }).
                     error(function(data, status, headers, config) {
@@ -107,6 +113,10 @@ angular.module('Orders')
                         var response = { success: false, message : status};
                         callback(response);
                     });
+        };
+
+        service.AcceptRecommendation = function (serverUrl, taskId, callback) {
+
         };
 
         service.GetComments = function (serverUrl, orderNumber, callback) {

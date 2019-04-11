@@ -1,9 +1,14 @@
 package org.jbpm.cases.orderithwapp;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
+import org.jbpm.document.service.impl.DocumentImpl;
 import org.kie.server.api.marshalling.MarshallingFormat;
 import org.kie.server.api.model.cases.CaseFile;
 import org.kie.server.api.model.instance.TaskSummary;
@@ -24,16 +29,16 @@ public class OrderItHwRemoteScripts {
 	
 	public static void main(String[] args) {
 		OrderItHwRemoteScripts remoteScripts = new OrderItHwRemoteScripts();
-		for (int i = 0; i < 5; i++) {
-			remoteScripts.startAndApproveAndCloseCase("maciek", "maciek1!", "apple", true);
-			remoteScripts.startAndApproveAndCloseCase("maciek", "maciek1!", "lenovo", true);
-			remoteScripts.startAndApproveAndCloseCase("mary", "mary1!", "apple", false);
-			remoteScripts.startAndApproveAndCloseCase("mary", "mary1!", "lenovo", false);
-		}
+//		for (int i = 0; i < 5; i++) {
+//			remoteScripts.startAndApproveAndCloseCase("maciek", "maciek1!", "apple", true);
+//			remoteScripts.startAndApproveAndCloseCase("maciek", "maciek1!", "lenovo", true);
+//			remoteScripts.startAndApproveAndCloseCase("mary", "mary1!", "apple", false);
+//			remoteScripts.startAndApproveAndCloseCase("mary", "mary1!", "lenovo", false);
+//		}
 		String caseId = remoteScripts.startCase("maciek", "maciek1!", "apple", "krisv");
 		remoteScripts.claimAndCompleteSupplierCaseTask("itorders", caseId, "tihomir", "tihomir1!");
 		
-		remoteScripts.addDynamicTask("itorders", caseId, "krisv", "krisv1!", "Contact legal", "krisv", "For user 'maciek': Please notify legal of your hardware request if necessary.");
+		remoteScripts.addDynamicTask("itorders", caseId, "krisv", "krisv1!", "Contact legal", "krisv", "Recommendation: For user 'maciek': Please notify legal of your hardware request if necessary.");
 //		remoteScripts.addDynamicTask("itorders", caseId, "krisv", "krisv1!", "Contact legal", "maciek", "Please notify legal of your hardware request if necessary.");
 	}
 	
@@ -64,6 +69,9 @@ public class OrderItHwRemoteScripts {
 	public void claimAndCompleteSupplierCaseTask(String containerId, String caseId, String userId, String password) {
 		KieServicesConfiguration conf = KieServicesFactory.newRestConfiguration(URL, userId, password);
         conf.setMarshallingFormat(FORMAT);
+        Set<Class<?>> extraJaxbClassList = new HashSet<Class<?>>();
+        extraJaxbClassList.add(DocumentImpl.class);
+        conf.addExtraClasses(extraJaxbClassList);
         KieServicesClient kieServicesClient = KieServicesFactory.newKieServicesClient(conf);
         CaseServicesClient caseServicesClient = kieServicesClient.getServicesClient(CaseServicesClient.class);
         UserTaskServicesClient userTaskServicesClient = kieServicesClient.getServicesClient(UserTaskServicesClient.class);
@@ -72,7 +80,12 @@ public class OrderItHwRemoteScripts {
 		System.out.println(userId + " completing task " + taskId + " " + tasks.get(0).getName());
 		userTaskServicesClient.claimTask(containerId, taskId, userId);
 		userTaskServicesClient.startTask(containerId, taskId, userId);
-		userTaskServicesClient.completeTask(containerId, taskId, userId, new HashMap<String, Object>());
+		Map<String, Object> data = new HashMap<String, Object>();
+		byte[] docContent = "first case document".getBytes();
+        DocumentImpl document = new DocumentImpl(UUID.randomUUID().toString(), "test case doc", docContent.length, new Date());
+    	document.setContent(docContent);
+		data.put("hwSpec_", document);
+		userTaskServicesClient.completeTask(containerId, taskId, userId, data);
 	}
 
 	public void completeManagerCaseTask(String containerId, String caseId, String userId, String password, boolean approved) {

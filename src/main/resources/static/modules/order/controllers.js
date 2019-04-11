@@ -399,9 +399,7 @@ angular.module('Orders')
                 };
 
                 $scope.showRecommendations = function() {
-
                     OrderService.GetRecommendationsForOrder(appConfig.get('kieserver_url'), $scope.order['case-id'], $scope.page, $scope.pageSize, function (response) {
-
                         if (response.success) {
                             $scope.tasks = response.data;
                         } else {
@@ -409,6 +407,21 @@ angular.module('Orders')
                             $scope.dataLoading = false;
                         }
                     });
+                };
+
+                $scope.acceptRecommendation = function(taskId) {
+                    OrderService.AcceptRecommendation(appConfig.get('kieserver_url'), $scope.order['case-id'], taskId, function (response) {
+                        if (response.success) {
+                            
+                        } else {
+                            $scope.error = response.message;
+                            $scope.dataLoading = false;
+                        }
+                    });
+                };
+
+                $scope.addDynamicTask = function() {
+                    
                 };
 
                
