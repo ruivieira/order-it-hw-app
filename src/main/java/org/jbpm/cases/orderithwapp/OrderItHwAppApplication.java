@@ -3,7 +3,7 @@ package org.jbpm.cases.orderithwapp;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jbpm.prediction.randomforest.RandomForestPredictionService;
+import org.jbpm.prediction.randomforest.SmileRandomForest;
 import org.kie.server.api.KieServerConstants;
 import org.kie.server.api.model.KieContainerResource;
 import org.kie.server.api.model.KieContainerStatus;
@@ -21,7 +21,7 @@ public class OrderItHwAppApplication {
     private static String VERSION = "2.0.0";
 
 	public static void main(String[] args) {
-		System.setProperty("org.jbpm.task.prediction.service", RandomForestPredictionService.IDENTIFIER);
+		System.setProperty("org.jbpm.task.prediction.service", SmileRandomForest.IDENTIFIER);
 		String controller = System.getProperty(KieServerConstants.KIE_SERVER_CONTROLLER);
         
         if ( controller != null && !controller.isEmpty()) {
