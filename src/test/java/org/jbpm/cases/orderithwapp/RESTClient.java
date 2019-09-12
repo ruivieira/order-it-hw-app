@@ -29,11 +29,14 @@ public class RESTClient {
 
     public static void main(String[] args) {
         RESTClient remoteScripts = new RESTClient();
+        String caseId = remoteScripts.startCase("maciek", "maciek1!", "apple", "krisv");
+        remoteScripts.claimAndCompleteSupplierCaseTask("itorders", caseId, "tihomir", "tihomir1!");
+        remoteScripts.completeManagerCaseTask("itorders", caseId, "krisv", "krisv1!", false);
 		for (int i = 0; i < 5; i++) {
 			remoteScripts.startAndApproveAndCloseCase("maciek", "maciek1!", "apple", true);
 			remoteScripts.startAndApproveAndCloseCase("maciek", "maciek1!", "lenovo", true);
 			remoteScripts.startAndApproveAndCloseCase("mary", "mary1!", "apple", false);
-			remoteScripts.startAndApproveAndCloseCase("mary", "mary1!", "lenovo", false);
+			remoteScripts.startAndApproveAndCloseCase("mary", "mary1!", "lenovo", true);
 		}
     }
 
